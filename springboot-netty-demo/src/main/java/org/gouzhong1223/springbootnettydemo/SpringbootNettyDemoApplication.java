@@ -10,16 +10,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringbootNettyDemoApplication implements CommandLineRunner {
 
-    @Value("${netty.port}")
-    private Integer port;
-
-    @Value("${netty.url}")
-    private String url;
-
     /**
-     *注入NettyServer组件
+     * 注入NettyServer组件
      */
     private final NettyServer nettyServer;
+    @Value("${netty.port}")
+    private Integer port;
+    @Value("${netty.url}")
+    private String url;
 
     public SpringbootNettyDemoApplication(NettyServer nettyServer) {
         this.nettyServer = nettyServer;

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description : Netty 处理器
+ * @Description : WebSocket 处理器
  * @Date : create by QingSong in 2020-07-09 5:49 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
@@ -35,20 +35,20 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
      * 一旦连接，第一个被执行
      *
      * @param ctx
-     * @throws Exception
      */
     @Override
-    public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+    public void handlerAdded(ChannelHandlerContext ctx) {
         log.info("handlerAdded 被调用" + ctx.channel().id().asLongText());
         // 添加到channelGroup 通道组
         NettyConfig.getChannelGroup().add(ctx.channel());
+
     }
 
     /**
      * 读取数据
      */
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) {
         log.info("服务器收到消息：{}", msg.text());
 
         // 获取用户ID,关联channel
@@ -65,7 +65,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
     }
 
     @Override
-    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+    public void handlerRemoved(ChannelHandlerContext ctx) {
         log.info("handlerRemoved 被调用" + ctx.channel().id().asLongText());
         // 删除通道
         NettyConfig.getChannelGroup().remove(ctx.channel());

@@ -2,4 +2,4 @@ server:
   port: 8080
 netty:
   port: 8089
-  url: webSocket
+  url: 127.0.0.1

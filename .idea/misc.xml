@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-netty-demo/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-netty-websocket-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-netty-demo-02/pom.xml" />
       </list>
     </option>
   </component>

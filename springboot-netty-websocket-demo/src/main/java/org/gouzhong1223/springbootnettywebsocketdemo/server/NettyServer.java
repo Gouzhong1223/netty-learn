@@ -15,7 +15,6 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 import org.gouzhong1223.springbootnettywebsocketdemo.handler.WebSocketHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +25,7 @@ import java.net.InetSocketAddress;
 /**
  * @Author : Gouzhong
  * @Blog : www.gouzhong1223.com
- * @Description :
+ * @Description : Netty 服务端
  * @Date : create by QingSong in 2020-07-09 5:49 下午
  * @Email : gouzhong1223@gmail.com
  * @Since : JDK 1.8
@@ -38,6 +37,7 @@ import java.net.InetSocketAddress;
 public class NettyServer {
 
     private static final Logger log = LoggerFactory.getLogger(NettyServer.class);
+
     /**
      * webSocket协议名
      */
@@ -46,20 +46,23 @@ public class NettyServer {
     /**
      * 端口号
      */
-    @Value("${webSocket.netty.port:58080}")
+    @Value("${netty.port}")
     private int port;
 
     /**
      * webSocket路径
      */
-    @Value("${webSocket.netty.path:/webSocket}")
+    @Value("${netty.url}")
     private String webSocketPath;
 
-    @Autowired
-    private WebSocketHandler webSocketHandler;
+    private final WebSocketHandler webSocketHandler;
 
     private EventLoopGroup bossGroup;
     private EventLoopGroup workGroup;
+
+    public NettyServer(WebSocketHandler webSocketHandler) {
+        this.webSocketHandler = webSocketHandler;
+    }
 
     /**
      * 启动

@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Service
 public class PushServiceImpl implements PushService {
+
     @Override
     public void pushMsgToOne(String userId, String msg) {
         ConcurrentHashMap<String, Channel> userChannelMap = NettyConfig.getUserChannelMap();

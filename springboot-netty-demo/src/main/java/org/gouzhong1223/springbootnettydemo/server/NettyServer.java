@@ -73,9 +73,9 @@ public class NettyServer {
             e.printStackTrace();
         } finally {
             if (f != null && f.isSuccess()) {
-                log.info("Netty server listening " + hostname + " on port " + port + " and ready for connections...");
+                log.info("NettyClient server listening " + hostname + " on port " + port + " and ready for connections...");
             } else {
-                log.error("Netty server start up Error!");
+                log.error("NettyClient server start up Error!");
             }
         }
         return f;
@@ -85,13 +85,13 @@ public class NettyServer {
      * 停止服务
      */
     public void destroy() {
-        log.info("Shutdown Netty Server...");
+        log.info("Shutdown NettyClient Server...");
         if (channel != null) {
             channel.close();
         }
         // 优雅关闭
         workerGroup.shutdownGracefully();
         bossGroup.shutdownGracefully();
-        log.info("Shutdown Netty Server Success!");
+        log.info("Shutdown NettyClient Server Success!");
     }
 }

@@ -16,6 +16,9 @@ public class SpringbootNettyDemoApplication implements CommandLineRunner {
     @Value("${netty.url}")
     private String url;
 
+    /**
+     *注入NettyServer组件
+     */
     private final NettyServer nettyServer;
 
     public SpringbootNettyDemoApplication(NettyServer nettyServer) {

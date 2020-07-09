@@ -21,6 +21,17 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
+    }
+
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        super.channelRegistered(ctx);
+    }
+
     /**
      * 对每一个传入的消息都要调用；
      *
@@ -33,8 +44,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
         ByteBuf in = (ByteBuf) msg;
         System.out.println("server received: " + in.toString(CharsetUtil.UTF_8));
-        ctx.channel().writeAndFlush("Hello,This is Server...");
-        ctx.write(in);
+        ctx.write("aaaaaabbbb");
     }
 
 
@@ -42,10 +52,9 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
      * 通知ChannelInboundHandler最后一次对channelRead()的调用时当前批量读取中的的最后一条消息。
      *
      * @param ctx
-     * @throws Exception
      */
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+    public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
     }
 
@@ -54,10 +63,9 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
      *
      * @param ctx
      * @param cause
-     * @throws Exception
      */
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         log.error("服务端出错...");
         ctx.close();

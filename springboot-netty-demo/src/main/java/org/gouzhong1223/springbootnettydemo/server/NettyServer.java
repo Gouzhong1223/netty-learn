@@ -60,12 +60,11 @@ public class NettyServer {
                     .localAddress(new InetSocketAddress(hostname, port))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        protected void initChannel(SocketChannel socketChannel) throws Exception {
-//                            为监听客户端read/write事件的Channel添加用户自定义的ChannelHandler
+                        protected void initChannel(SocketChannel socketChannel) {
+                            // 为监听客户端read/write事件的Channel添加用户自定义的ChannelHandler
                             socketChannel.pipeline().addLast(serverHandler);
                         }
                     });
-
 
             f = b.bind().sync();
             channel = f.channel();
@@ -90,6 +89,7 @@ public class NettyServer {
         if (channel != null) {
             channel.close();
         }
+        // 优雅关闭
         workerGroup.shutdownGracefully();
         bossGroup.shutdownGracefully();
         log.info("Shutdown Netty Server Success!");

@@ -29,12 +29,7 @@ public class SpringbootNettyDemoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         ChannelFuture future = nettyServer.start(url, port);
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                nettyServer.destroy();
-            }
-        });
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> nettyServer.destroy()));
         //服务端管道关闭的监听器并同步阻塞,直到channel关闭,线程才会往下执行,结束进程
         future.channel().closeFuture().syncUninterruptibly();
     }
